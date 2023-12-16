@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>My First TAP Project</title>
+</head>
+
+<body onload = "render()" >
+
+    <div class="stickyHeader ">
+        <header class="mainHeader pageContainer">
+            <a href="#" class="logo">Web Topics</a>
+
+            <div class="buttons">
+                <button class="buttons" id="darkModeBtn">
+                    <div class="moon icon">
+                        <ion-icon class="custom-icon" name="moon-outline"></ion-icon>
+                    </div>
+                    <p class="buttonName"> Dark Mode </p>
+                </button>
+
+                <button class="buttons" id="favouriteBtn">
+                    <div class="heart icon">
+                        <ion-icon name="heart-outline"></ion-icon>
+                    </div>
+                    <p> Favourites </p>
+                </button>
+            </div>
+        </header>
+    </div>
+    <div class="headerDesignBox">
+        <div class="headerDesignPrimary"></div>
+        <div class="headerDesignSecondary"></div>
+        <div class="headerText">
+            <h1>Welcome to our website!</h1>
+            <p>We have a new design that's fresh, modern and easy to use</p>
+        </div>
+    </div>
+
+
+ <div class="pageContainer">
+    <div class="searchContainer">
+        <div class="searchBar">
+            <div class="searchIcon">
+                <ion-icon name="search-outline"></ion-icon>
+            </div>
+            <input type="text" id="searchInput" oninput="sortData(), handleSearch()" placeholder="Search the website...">
+        </div>
+        <div class="optionsList">
+            <div class="sortBy labels">
+                <label>Sort By:</label>
+                <select id="sortList">
+                   <option value="default">Default</option> 
+                    <option value="topicTitle">Topic Title</option>
+                    <option value="authorName">Author Name</option>
+                </select>
+            </div>
+            <div class="filterBy labels">
+                <label>Filter By:</label>
+                <select>
+                    <option value="default">Default</option>
+                    <option value="category">Category</option>
+                    <option value="price">Price</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+<h2 class="resultsCount">"<span class="resultsNumber" >0</span>" Web Topics Found</h2>
+
+    <div class="courseContainer pageContainer">
+
+        <div class="allCourses">
+
+        </div>
+
+    </div>
+
+
+    <div id="favouritesArea" class="hidden pageContainer">
+        <h4>My Favourite Topics</h4>
+
+        <div class="favouriteCourses">
+<!-- 
+            <a href="#" class="course">
+                <img src="#" alt="HTML web development">
+                <div class="courseContent">
+                    <h3 class="courseTitle">HTML</h3>
+                    <div class="courseRating">
+                        ★★★★☆
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="course">
+                <img src="#" alt="HTML web development">
+                <div class="courseContent">
+                    <h3 class="courseTitle">HTML</h3>
+                    <div class="courseRating">
+                        ★★★★☆
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="course">
+                <img src="#" alt="HTML web development">
+                <div class="courseContent">
+                    <h3 class="courseTitle">HTML</h3>
+                    <div class="courseRating">
+                        ★★★★☆
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="course">
+                <img src="#" alt="HTML web development">
+                <div class="courseContent">
+                    <h3 class="courseTitle">HTML</h3>
+                    <div class="courseRating">
+                        ★★★★☆
+                    </div>
+                </div> -->
+            </a>
+
+
+
+        </div>
+    </div>
+
+    <footer class="mainFooter">
+        <p>Developed with 
+          <span class="heartLogo">
+            <ion-icon name="heart"></ion-icon>
+          </span> © 2023</p>
+      </footer>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
