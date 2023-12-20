@@ -77,47 +77,59 @@ function extractClassNumber(element) {
   }
   return null;
 }
+// Function to extract the id from the URL
+function getIdFromUrl() {
+  // Get the current URL
+  var currentUrl = window.location.href;
 
-//function to fetch detailes from the API
-let id=5;
-async function fetchDetailes(idNumber) {
+  // Extract the 'id' from the URL using a regular expression
+  var match = currentUrl.match(/id=(\d+)/);
 
+  // Check if the 'id' is found in the URL
+  if (match) {
+      // Extract the id from the matched results
+      return match[1];
+  } else {
+/*       console.error("No 'id' found in the URL"); */
+      return null;
+  }
+}
+
+// Function to fetch and render details
+async function fetchAndRenderDetails() {
+  // Get the id from the URL
+  var id = getIdFromUrl();
+
+  if (id !== null) {
+      // Call fetchDetailes function with the extracted id
+      await fetchDetailes(id);
+  }
+}
+
+// Call the function to fetch and render details when the script is loaded
+fetchAndRenderDetails();
+
+async function fetchDetailes(uniqueClassNumber) {
   try {
-    const response = await fetch(`https://tap-web-1.herokuapp.com/topics/details/${id}`);
+    const response = await fetch(`https://tap-web-1.herokuapp.com/topics/details/${uniqueClassNumber}`);
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
     const detailesData = await response.json();
 
-   renderDetailes(detailesData); 
-   var detailsUrl = `details.html?id=${idNumber}`;
-   window.location.href = detailsUrl;  
+    renderDetailes(detailesData);  
 
   } catch (error) {
-/*     console.error("Error fetching DETAILES data:", error.message); */
+     console.error("Error fetching DETAILES data:", error.message); 
   }
 }
 
-// Fetch the data from the API and call the renderData function
-async function render() {
-  try {
-    const response = await fetch("https://tap-web-1.herokuapp.com/topics/list");
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    data = await response.json();
-    renderData(data);
 
-  } catch (error) {
-    console.error("Error fetching data:", error.message);
-    alert("Error Loading Website")
-  }
-}
 
 //Function That Render The Detailes Page 
 function renderDetailes(detailesData) {
-
-  try {
+    
+    try {
     const aboutDiv = document.querySelector('.aboutCourse');
 
     const categoryR = document.createElement('h3');
@@ -188,20 +200,39 @@ function renderDetailes(detailesData) {
     }
 
   } catch (error) {
-    console.error("Error rendering data:", error.message);
-  }
+     console.error("Error rendering data:", error.message);
+  } 
 }
 
+// Fetch the data from the API and call the renderData function
+async function render() {
+  try {
+    const response = await fetch("https://tap-web-1.herokuapp.com/topics/list");
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    data = await response.json();
+    renderData(data);
 
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+    alert("Error Loading Website")
+  }
+}
+let counter;
 // Rendering data function 
 function renderData(data) {
+  var currentUrl = window.location.href;
+
+if (currentUrl.endsWith("index.html")) {
   try {
-    let counter = 0;
+   counter= 0;
     const allCourses = document.querySelector('.allCourses');
     allCourses.innerHTML = '';
 
     for (let card of data) {
-      const course = document.createElement('div');
+      const course = document.createElement('a');
+      course.href= `details.html?id=${card.id}`; 
       course.classList.add('course');
       course.classList.add(`course-${card.id}`);
       const image = document.createElement('img');
@@ -254,8 +285,10 @@ function renderData(data) {
     addCardClickEventListeners();
 
   } catch (error) {
-    /*    console.error("Error rendering data:", error.message); */
+      console.error("Error rendering data:", error.message); 
   }
+} else {
+}
 }
 
 
@@ -310,6 +343,10 @@ function applySorting(selectedValue) {
   }
 }
 
+
+
+
+
 // SortData Function by topic and by author 
 const sortData = function () {
   try {
@@ -324,11 +361,70 @@ const sortData = function () {
     // Apply sorting when the page loads
     applySorting(sortList.value);
   } catch (error) {
-    /*  console.error("Error sorting data:", error.message); */
+   /*  console.error("Error sorting data:", error.message);  */
   }
 }
+
+function applyFiltering(selectedFilterValue) {
+  const cards = Array.from(document.querySelectorAll('.course'));
+  counter= 0;
+  try {
+
+    cards.forEach(card => {
+      const courseSubTitle = card.querySelector('.courseSubTitle');
+      if(selectedFilterValue === 'Default'){
+        card.style.display = 'block';
+      }
+      else if(courseSubTitle.textContent === selectedFilterValue){
+        card.style.display = 'block'; 
+        counter++;
+      } else{
+        card.style.display = 'none'; 
+      }
+      const countResult = document.querySelector('.resultsNumber');
+      countResult.innerHTML = counter;
+  });
+
+
+  } catch (error) {
+   console.error("Error Filtering data:", error.message); 
+  }
+}
+
+const filterData = function () {
+  try {
+      const filterList = document.getElementById('filterList');
+
+      // Event listener for the 'change' event
+      filterList.addEventListener('change', function () {
+          // Get the selected option
+          const selectedOption = filterList.selectedOptions[0];
+
+          // Check if an option is selected
+          if (selectedOption) {
+              // Get the text content of the selected option
+              const selectedFilterText = selectedOption.textContent;
+              
+              // Call the function with the selected text
+              applyFiltering(selectedFilterText);
+          }
+      });
+
+      // Apply filtering when the page loads
+      // Ensure that an option is selected initially
+      if (filterList.selectedOptions.length > 0) {
+          const selectedFilterText = filterList.selectedOptions[0].textContent;
+          applyFiltering(selectedFilterText);
+      }
+  } catch (error) {
+  /*     console.error("Error filtering data:", error.message); */
+  }
+};
 // Call the render function to fetch and render initial data
 render();
 
 // Call the sortData function to initialize sorting functionality
 sortData();
+filterData();
+
+
