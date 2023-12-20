@@ -1,4 +1,4 @@
-var tgl = document.getElementById("darkModeBtn");
+const tgl = document.getElementById("darkModeBtn");
 const savedDarkMode = localStorage.getItem('darkMode');
 
 let iconElement, buttonName;
@@ -57,10 +57,10 @@ function debounce(func, delay) {
 
 //function to make the cards clickable and return the unique class number and call the fetch detailes
 function addCardClickEventListeners() {
-  var cards = document.querySelectorAll('.allCourses .course');
+  const cards = document.querySelectorAll('.allCourses .course');
   cards.forEach(function (card) {
     card.addEventListener('click', function () {
-      var uniqueClassNumber = extractClassNumber(card);
+      const uniqueClassNumber = extractClassNumber(card);
       fetchDetailes(uniqueClassNumber);
 
     });
@@ -68,9 +68,9 @@ function addCardClickEventListeners() {
 }
 //return the unique class number for each card get clicked
 function extractClassNumber(element) {
-  var classes = element.classList;
-  for (var i = 0; i < classes.length; i++) {
-    var className = classes[i];
+  const classes = element.classList;
+  for (const i = 0; i < classes.length; i++) {
+    const className = classes[i];
     if (className.startsWith('course-')) {
       return className.replace('course-', '');
     }
@@ -80,10 +80,10 @@ function extractClassNumber(element) {
 // Function to extract the id from the URL
 function getIdFromUrl() {
   // Get the current URL
-  var currentUrl = window.location.href;
+  const currentUrl = window.location.href;
 
   // Extract the 'id' from the URL using a regular expression
-  var match = currentUrl.match(/id=(\d+)/);
+  const match = currentUrl.match(/id=(\d+)/);
 
   // Check if the 'id' is found in the URL
   if (match) {
@@ -98,7 +98,7 @@ function getIdFromUrl() {
 // Function to fetch and render details
 async function fetchAndRenderDetails() {
   // Get the id from the URL
-  var id = getIdFromUrl();
+  const id = getIdFromUrl();
 
   if (id !== null) {
       // Call fetchDetailes function with the extracted id
@@ -222,7 +222,7 @@ async function render() {
 let counter;
 // Rendering data function 
 function renderData(data) {
-  var currentUrl = window.location.href;
+  const currentUrl = window.location.href;
 
 if (currentUrl.endsWith("index.html")) {
   try {
@@ -426,5 +426,3 @@ render();
 // Call the sortData function to initialize sorting functionality
 sortData();
 filterData();
-
-
