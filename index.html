@@ -11,7 +11,7 @@
     <title>My First TAP Project</title>
 </head>
 
-<body onload = "render()" >
+<body>
 
     <div class="stickyHeader ">
         <header class="mainHeader pageContainer">
@@ -63,10 +63,13 @@
             </div>
             <div class="filterBy labels">
                 <label>Filter By:</label>
-                <select>
+                <select id="filterList">
                     <option value="default">Default</option>
-                    <option value="category">Category</option>
-                    <option value="price">Price</option>
+                    <option value="WebDevLang">Web Development Languages</option>
+                    <option value="frontEnd">Frontend Frameworks and Libraries</option>
+                    <option value="backEnd">Backend Frameworks and Libraries</option>
+                    <option value="api">Databases and APIs</option>
+                    <option value="webConcepts">Web Development Concepts and Technologies</option>
                 </select>
             </div>
         </div>
