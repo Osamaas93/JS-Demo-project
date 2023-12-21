@@ -142,6 +142,7 @@ body {
     border: 1px solid var(--bgDefault);
     border-radius: 10px;
     background-color: var(--bgDefault);
+    width: 100%;
   }
   
   .optionsList {
