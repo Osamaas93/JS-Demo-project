@@ -80,15 +80,10 @@ function extractClassNumber(element) {
 }
 // Function to extract the id from the URL
 function getIdFromUrl() {
-  // Get the current URL
   const currentUrl = window.location.href;
-
-  // Extract the 'id' from the URL using a regular expression
   const match = currentUrl.match(/id=(\d+)/);
 
-  // Check if the 'id' is found in the URL
   if (match) {
-    // Extract the id from the matched results
     return match[1];
   } else {
     /*       console.error("No 'id' found in the URL"); */
@@ -99,22 +94,16 @@ function getIdFromUrl() {
 // Function to fetch and render details
 async function fetchAndRenderDetails() {
   try {
-    // Get the id from the URL
     const id = getIdFromUrl();
 
     if (id !== null) {
-      // Call fetchDetailes function with the extracted id
       const detailsData = await fetchDetailes(id);
-
-      // Now you have the detailsData, you can render it
       renderDetailes(detailsData);
     }
   } catch (error) {
-    // Handle the error, e.g., display an error message to the user.
     console.error("Error:", error.message);
   }
 }
-// Call the function to fetch and render details when the script is loaded
 fetchAndRenderDetails();
 
 
@@ -131,7 +120,6 @@ async function fetchDetailes(uniqueClassNumber) {
 
   } catch (error) {
     console.error("Error fetching DETAILES data:", error.message);
-    // You might want to throw the error here to handle it in the calling code.
     throw error;
   }
 }
@@ -354,7 +342,6 @@ function renderData(data) {
 
 const handleSearch = debounce(async () => {
   try {
-    // Get the search input value
     const searchQuery = document.getElementById("searchInput").value;
 
     const response = await fetch(`https://tap-web-1.herokuapp.com/topics/list?phrase=${searchQuery}`);
@@ -362,11 +349,8 @@ const handleSearch = debounce(async () => {
       throw new Error("Failed to fetch search data");
     }
     const searchData = await response.json();
-
-    // Render the search results
     renderData(searchData);
 
-    // Reapply sorting after rendering search results
     const sortList = document.getElementById('sortList');
     applySorting(sortList.value);
 
@@ -412,8 +396,6 @@ const sortData = function () {
       const selectedValue = this.value;
       applySorting(selectedValue);
     });
-
-    // Apply sorting when the page loads
     applySorting(sortList.value);
   } catch (error) {
     /*  console.error("Error sorting data:", error.message);  */
@@ -449,23 +431,16 @@ const filterData = function () {
   try {
     const filterList = document.getElementById('filterList');
 
-    // Event listener for the 'change' event
     filterList.addEventListener('change', function () {
-      // Get the selected option
       const selectedOption = filterList.selectedOptions[0];
 
-      // Check if an option is selected
       if (selectedOption) {
-        // Get the text content of the selected option
         const selectedFilterText = selectedOption.textContent;
-
-        // Call the function with the selected text
         applyFiltering(selectedFilterText);
       }
     });
 
     // Apply filtering when the page loads
-    // Ensure that an option is selected initially
     if (filterList.selectedOptions.length > 0) {
       const selectedFilterText = filterList.selectedOptions[0].textContent;
       applyFiltering(selectedFilterText);
@@ -474,10 +449,7 @@ const filterData = function () {
     /*     console.error("Error filtering data:", error.message); */
   }
 };
-// Call the render function to fetch and render initial data
 render();
-
-// Call the sortData function to initialize sorting functionality
 sortData();
 filterData();
 
